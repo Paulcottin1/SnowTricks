@@ -25,7 +25,7 @@ class Video
     private $url;
 
     /**
-     * @var object
+     * @var Trick
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
      * @ORM\JoinColumn(nullable=false)
      */

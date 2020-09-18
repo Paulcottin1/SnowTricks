@@ -33,7 +33,7 @@ class Category
     private $description;
 
     /**
-     * @var Trick[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="category")
      */
     private $tricks;
