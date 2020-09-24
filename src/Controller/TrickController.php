@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\Image;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +38,13 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form['image']->getData();
-            $path = $this->getParameter('images_directory');
+            $images = $form['images']->getData();
+            $path = $this->getParameter('images_directory'); 
+             
+            foreach($images as $img) {
+                $img->upload($img->getImage(), $path);
+            }
+                 
             $entityManager = $this->getDoctrine()->getManager();
             $trick->upload($image, $path);
             $entityManager->persist($trick);
@@ -94,8 +101,14 @@ class TrickController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);
             $entityManager->flush();
-            $path = $this->getParameter('images_directory') . $trick->getImage();
-            unlink($path);
+            $image = $this->getParameter('images_directory') . $trick->getImage();
+            $images = $trick->getImages();
+            foreach($images as $img) {
+                $img = $img->getName();
+                $deleteImg = $this->getParameter('images_directory') . $img;
+                unlink($deleteImg);
+            }
+            unlink($image);
         }
 
         return $this->redirectToRoute('trick_index');

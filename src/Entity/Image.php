@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -19,7 +21,17 @@ class Image
     private $id;
 
     /**
-     * @var string
+     * @ORM\Column(type="string")
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 2000,
+     *     minHeight = 200,
+     *     maxHeight = 2000
+     * )
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -36,15 +48,27 @@ class Image
         return $this->id;
     }
 
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage(UploadedFile $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
     }
-
+ 
     public function setName(string $name): self
     {
         $this->name = $name;
-
+ 
         return $this;
     }
 
@@ -59,4 +83,28 @@ class Image
 
         return $this;
     }
+
+    public function upload($image, $path)
+    {
+        if (null === $this->getImage()) {
+            return;
+        }
+        
+        $imageName = $image->getClientOriginalName();
+        $image->move(
+            $path,
+            $imageName
+        );
+        $this->setName($image->getClientOriginalName());
+   }
+
+   public function lifecycleFileUpload($image, $path)
+   {
+        $this->upload($image, $path);
+   }
+
+   public function refreshUpdated()
+   {
+        $this->setUpdated(new \DateTime());
+   }
 }
