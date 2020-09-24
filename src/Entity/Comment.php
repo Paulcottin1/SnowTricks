@@ -31,14 +31,14 @@ class Comment
     private $commentedAt;
 
     /**
-     * @var object
+     * @var User
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @var object
+     * @var Trick
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */

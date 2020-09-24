@@ -63,13 +63,13 @@ class User
     private $createdDate;
 
     /**
-     * @var Trick[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user")
      */
     private $tricks;
 
     /**
-     * @var Comment[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
      */
     private $comments;

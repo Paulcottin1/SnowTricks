@@ -6,6 +6,8 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -39,58 +41,62 @@ class Trick
     private $content;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string")
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 2000,
+     *     minHeight = 200,
+     *     maxHeight = 2000
+     * )
      */
-    private $image;
+    private $image = null;
 
     /**
      * @var DateTime
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
      * @var DateTime
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @var object
+     * @var User
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $user;
+    private $user = null;
 
     /**
-     * @var Comment[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick")
      */
     private $comments;
 
     /**
-     * @var object
+     * @var Category
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $category;
+    private $category = null;
 
     /**
-     * @var Image[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick")
      */
     private $images;
 
     /**
-     * @var Video[]
+     * @var Collection
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick")
      */
     private $videos;
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->videos = new ArrayCollection();
@@ -137,12 +143,14 @@ class Trick
         return $this;
     }
 
+
     public function getImage(): ?string
-    {
+    { 
         return $this->image;
     }
 
-    public function setImage(string $image): self
+
+    public function setImage(string $image = null): self
     {
         $this->image = $image;
 
@@ -313,4 +321,28 @@ class Trick
 
         return $this;
     }
+
+    public function upload($image, $path)
+    {
+        if (null === $this->getImage()) {
+            return;
+        }
+        
+        $imageName = $image->getClientOriginalName();
+        $image->move(
+            $path,
+            $imageName
+        );
+        $this->setImage($image->getClientOriginalName());
+   }
+
+   public function lifecycleFileUpload($image, $path)
+   {
+        $this->upload($image, $path);
+   }
+
+   public function refreshUpdated()
+   {
+        $this->setUpdated(new \DateTime());
+   }
 }

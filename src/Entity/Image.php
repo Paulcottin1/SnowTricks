@@ -25,7 +25,7 @@ class Image
     private $name;
 
     /**
-     * @var object
+     * @var Trick
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
