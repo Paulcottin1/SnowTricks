@@ -85,7 +85,8 @@ class Trick
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="trick", cascade={"persist"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $images;
 
