@@ -39,8 +39,8 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form['image']->getData();
             $images = $form['images']->getData();
-            $path = $this->getParameter('images_directory'); 
-             
+            $path = $this->getParameter('images_directory');
+
             foreach($images as $img) {
                 $img->upload($img->getImage(), $path);
             }

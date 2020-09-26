@@ -1,15 +1,24 @@
 var $collectionHolder;
 
 // setup an "add a tag" link
-var $addTagButton = $('<button type="button" class="add_tag_link">Ajouter une image supplémentaire</button>');
+var $addTagButton = $('<button type="button" class="add_tag_link">Ajouter</button>');
 var $newLinkLi = $('<li></li>').append($addTagButton);
+
+var $addVideoButton = $('<button type="button" class="add_tag_link">Ajouter</button>');
+var $newVideoLi = $('<li></li>').append($addVideoButton);
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
-    $collectionHolder = $('ul.tags');
+    $collectionHolder = $('ul.image');
 
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
+
+    // Get the ul that holds the collection of video
+    $collectionHolderVideo = $('ul.video');
+
+    // add the "add a video" anchor and li to the videos ul
+    $collectionHolderVideo.append($newVideoLi);
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)
@@ -18,6 +27,11 @@ jQuery(document).ready(function() {
     $addTagButton.on('click', function(e) {
         // add a new tag form (see next code block)
         addTagForm($collectionHolder, $newLinkLi);
+    });
+
+    $addVideoButton.on('click', function(e) {
+        // add a new tag form (see next code block)
+        addTagForm($collectionHolderVideo, $newVideoLi);
     });
 });
 
