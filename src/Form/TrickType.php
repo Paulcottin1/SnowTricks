@@ -20,7 +20,8 @@ class TrickType extends AbstractType
             ->add('content')
             ->add('image', FileType::class,[
                 'data_class' => null,
-                'label' => 'Image de présentation'
+                'label' => 'Image de présentation',
+                'required' => false,
             ])
             ->add('images', CollectionType::class,[
                 'required' => false,
@@ -28,6 +29,7 @@ class TrickType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'label' => false,
             ])
             ->add('videos', CollectionType::class, [
                 'required' => false,
@@ -35,6 +37,7 @@ class TrickType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'label' => false,
             ])
         ;
     }

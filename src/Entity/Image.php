@@ -21,7 +21,7 @@ class Image
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\Image(
      *     minWidth = 200,
      *     maxWidth = 2000,
@@ -53,7 +53,7 @@ class Image
         return $this->image;
     }
 
-    public function setImage(UploadedFile $image): self
+    public function setImage(UploadedFile $image = null): self
     {
         $this->image = $image;
 
