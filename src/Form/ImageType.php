@@ -15,7 +15,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('image', FileType::class, [
-                'label' => 'test',
+                'label' => 'Image : ',
                 'data_class' => null,
             ]);
     }

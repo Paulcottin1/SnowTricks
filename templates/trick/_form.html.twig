@@ -1,9 +1,25 @@
-{{ form_start(form) }}
-        <p>Ajouter des images</p>
+<div class="form-trick">
+    {{ form_start(form) }}
+        <div>
+            {{ form_row(form.title) }}
+        </div>
+        <div>
+            {{ form_row(form.chapo) }}
+        </div>
+        <div>
+            {{ form_row(form.content) }}
+        </div>
+        <div>
+                <div class="">
+                        <img src="/assets/images/{{ trick.imageName }}" alt="{{ trick.imageName }}" class="img-trick-principale">
+                </div>
+                {{ form_row(form.image) }}
+        </div>
+        <p>Ajouter des images explicatives</p>
         <ul class="image" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-        {% for image in form.images %}
-            <li>{{ form_row(image.image) }}</li>
-        {% endfor %}
+            {% for image in form.images %}
+                    <li>{{ form_row(image.image) }}</li>
+            {% endfor %}
         </ul>
         <p>Ajouter des liens de vidéos (youtube uniquement)</p>
         <ul class="video" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
@@ -11,5 +27,6 @@
                 <li>{{ form_row(video.url) }}</li>
             {% endfor %}
         </ul>
-        <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+        <button class="btn">{{ button_label|default('Enregister') }}</button>
+    {{ form_end(form) }}
+</div>

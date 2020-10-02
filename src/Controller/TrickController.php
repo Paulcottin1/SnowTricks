@@ -44,6 +44,14 @@ class TrickController extends AbstractController
             foreach($images as $img) {
                 $img->upload($img->getImage(), $path);
             }
+
+            if(empty($image)) {
+                $this->addFlash(
+                    'notice',
+                    'Vous devez ajouter une image de présentation'
+                );
+                return $this->redirectToRoute('trick_new');
+            }
                  
             $entityManager = $this->getDoctrine()->getManager();
             $trick->upload($image, $path);
@@ -79,8 +87,14 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $image = $form['image']->getData();
+            $images = $form['images']->getData();
             $path = $this->getParameter('images_directory');
             $trick->upload($image, $path);
+
+            foreach($images as $img) {
+                $img->upload($img->getImage(), $path);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('trick_index');
@@ -101,7 +115,7 @@ class TrickController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);
             $entityManager->flush();
-            $image = $this->getParameter('images_directory') . $trick->getImage();
+            $image = $this->getParameter('images_directory') . $trick->getImageName();
             $images = $trick->getImages();
             foreach($images as $img) {
                 $img = $img->getName();

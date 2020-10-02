@@ -6,6 +6,7 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -41,7 +42,6 @@ class Trick
     private $content;
 
     /**
-     * @ORM\Column(type="string")
      * @Assert\Image(
      *     minWidth = 200,
      *     maxWidth = 2000,
@@ -49,7 +49,7 @@ class Trick
      *     maxHeight = 2000
      * )
      */
-    private $image = null;
+    private $image;
 
     /**
      * @var DateTime
@@ -95,6 +95,11 @@ class Trick
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", cascade={"persist"}, orphanRemoval=true)
      */
     private $videos;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imageName;
 
     public function __construct()
     {
@@ -145,13 +150,13 @@ class Trick
     }
 
 
-    public function getImage(): ?string
+    public function getImage()
     { 
         return $this->image;
     }
 
 
-    public function setImage(string $image = null): self
+    public function setImage(UploadedFile $image = null): self
     {
         $this->image = $image;
 
@@ -334,7 +339,9 @@ class Trick
             $path,
             $imageName
         );
-        $this->setImage($image->getClientOriginalName());
+
+        $this->setImage($image);
+        $this->setImageName($image->getClientOriginalName());
    }
 
    public function lifecycleFileUpload($image, $path)
@@ -345,5 +352,17 @@ class Trick
    public function refreshUpdated()
    {
         $this->setUpdated(new \DateTime());
+   }
+
+   public function getImageName(): ?string
+   {
+       return $this->imageName;
+   }
+
+   public function setImageName(string $imageName): self
+   {
+       $this->imageName = $imageName;
+
+       return $this;
    }
 }
