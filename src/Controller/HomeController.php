@@ -32,14 +32,4 @@ Class HomeController extends Controller
             'tricks' => $result
         ]);
     }
-
-    /**
-     * @Route("/{id}", name="show", methods={"GET"})
-     */
-    public function show(Trick $trick): Response
-    {
-        return $this->render('home/show.html.twig', [
-            'trick' => $trick,
-        ]);
-    }
 }

@@ -10,7 +10,7 @@
                 <h2>{{ trick.title }}</h2>
                 <img src="/assets/images/{{ trick.imageName }}">
                 <p>{{ trick.chapo }}</p>
-                <a href="{{ path('show', {'id': trick.id}) }}">Voir plus</a>
+                <a href="{{ path('trick_show', {'id': trick.id}) }}">Voir plus</a>
             </li>
         {% else %}
             <li>
