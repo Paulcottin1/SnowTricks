@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <h1>SnowTricks</h1>
+    <ul>
+        {% for trick in tricks %}
+            <li>
+                <h2>{{ trick.title }}</h2>
+                <img src="/assets/images/{{ trick.imageName }}">
+                <p>{{ trick.chapo }}</p>
+                <a href="{{ path('show', {'id': trick.id}) }}">Voir plus</a>
+            </li>
+        {% else %}
+            <li>
+                <p> Aucuns tricks</p>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="navigation">
+        {{ knp_pagination_render(tricks) }}
+    </div>
+{% endblock %}
