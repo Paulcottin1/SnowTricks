@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New user{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+        <h1>Create new user</h1>
+       <div>
+           {{ form_row(form.firstname) }}
+       </div>
+        <div>
+            {{ form_row(form.lastname) }}
+        </div>
+        <div>
+            {{ form_row(form.email) }}
+        </div>
+        <div>
+            {{ form_row(form.password) }}
+        </div>
+        <button class="btn">{{ button_label|default('Enregister') }}</button>
+    {{ form_end(form) }}
+{% endblock %}
