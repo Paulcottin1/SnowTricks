@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/trick")
@@ -77,6 +78,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
+     * @Security("has_role('ROLE_USER')")
      */
     public function edit(Request $request, Trick $trick): Response
     {
@@ -106,6 +108,8 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/{id}", name="trick_delete", methods={"DELETE"})
+     * @Security("has_role('ROLE_USER') and user == trick.getUser()",
+     *     message = "Ce n'est pas votre trick, vous ne pouvez pas le supprimer")
      */
     public function delete(Request $request, Trick $trick): Response
     {
