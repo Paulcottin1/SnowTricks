@@ -1,32 +1,44 @@
 <div class="form-trick">
-    {{ form_start(form) }}
-        <div>
-            {{ form_row(form.title) }}
+        <div class="img-presentation justify-content-center row">
+                <img src="/assets/images/{{ trick.imageName }}" alt="{{ trick.imageName }}" class="img-trick-principale col-8">
         </div>
-        <div>
-            {{ form_row(form.chapo) }}
-        </div>
-        <div>
-            {{ form_row(form.content) }}
-        </div>
-        <div>
-                <div class="">
-                        <img src="/assets/images/{{ trick.imageName }}" alt="{{ trick.imageName }}" class="img-trick-principale">
+        <div class="row justify-content-center">
+                <div class="trick-form col-8">
+                        {{ form_start(form) }}
+                        <div>
+                                {{ form_row(form.title) }}
+                        </div>
+                        <div>
+                                {{ form_row(form.chapo) }}
+                        </div>
+                        <div>
+                                {{ form_row(form.content) }}
+                        </div>
+                        <div class="">
+                                {{form_row(form.image) }}
+                        </div>
+                        <div class="row justify-content-center margin-top">
+                                <div class="col-6 text-center">
+                                        <p>Ajouter des images explicatives</p>
+                                        <ul class="image" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                                                {% for image in form.images %}
+                                                        <li>{{ form_row(image.image) }}</li>
+                                                {% endfor %}
+                                        </ul>
+                                </div>
+                                <div class="col-6 text-center">
+                                        <p>Ajouter des liens de vidéos (youtube uniquement)</p>
+                                        <ul class="video" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                                                {% for video in form.videos %}
+                                                        <li>{{ form_row(video.url) }}</li>
+                                                {% endfor %}
+                                        </ul>
+                                </div>
+                        </div>
+                        <div class="text-center">
+                                <button class="btn btn-info">{{ button_label|default('Enregister') }}</button>
+                        </div>
+                        {{ form_end(form) }}
                 </div>
-                {{ form_row(form.image) }}
         </div>
-        <p>Ajouter des images explicatives</p>
-        <ul class="image" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-            {% for image in form.images %}
-                    <li>{{ form_row(image.image) }}</li>
-            {% endfor %}
-        </ul>
-        <p>Ajouter des liens de vidéos (youtube uniquement)</p>
-        <ul class="video" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-            {% for video in form.videos %}
-                <li>{{ form_row(video.url) }}</li>
-            {% endfor %}
-        </ul>
-        <button class="btn">{{ button_label|default('Enregister') }}</button>
-    {{ form_end(form) }}
 </div>

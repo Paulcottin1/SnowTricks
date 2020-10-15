@@ -97,7 +97,7 @@ class TrickController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('trick_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('trick/edit.html.twig', [

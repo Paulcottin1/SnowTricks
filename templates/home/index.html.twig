@@ -3,22 +3,33 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1>SnowTricks</h1>
-    <ul>
-        {% for trick in tricks %}
-            <li>
-                <h2>{{ trick.title }}</h2>
-                <img src="/assets/images/{{ trick.imageName }}">
-                <p>{{ trick.chapo }}</p>
-                <a href="{{ path('trick_show', {'id': trick.id}) }}">Voir plus</a>
-            </li>
-        {% else %}
-            <li>
-                <p> Aucuns tricks</p>
-            </li>
-        {% endfor %}
-    </ul>
-    <div class="navigation">
-        {{ knp_pagination_render(tricks) }}
+    <div class="slogan d-flex justify-content-center">
+        <span class="align-self-center"> Pray for the powder </span>
+    </div>
+    <div id="tricks" class="">
+        <ul class="row justify-content-center">
+            {% for trick in tricks %}
+                <li class="col-md-3 col-sm-6 trick">
+                    <img src="/assets/images/{{ trick.imageName }}">
+                    <div class="row justify-content-center trick-text">
+                        <a href="{{ path('trick_show', {'id': trick.id}) }}" class="col-8 title text-center">{{ trick.title }}</a>
+                        {% if app.user %}
+                            <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="col-1"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
+                            <a class="col-1">{{ include('trick/_delete_form.html.twig') }}</a>
+                        {% endif %}
+                    </div>
+
+                </li>
+            {% else %}
+                <li>
+                    <p> Aucuns tricks</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="row justify-content-center">
+            <div class="navigation">
+                {{ knp_pagination_render(tricks) }}
+            </div>
+        </div>
     </div>
 {% endblock %}

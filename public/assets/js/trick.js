@@ -1,10 +1,10 @@
 var $collectionHolder;
 
 // setup an "add a tag" link
-var $addTagButton = $('<button type="button" class="add_tag_link">Ajouter</button>');
+var $addTagButton = $('<button type="button" class="add_tag_link btn btn-info">+</button>');
 var $newLinkLi = $('<li></li>').append($addTagButton);
 
-var $addVideoButton = $('<button type="button" class="add_tag_link">Ajouter</button>');
+var $addVideoButton = $('<button type="button" class="add_tag_link btn btn-info">+</button>');
 var $newVideoLi = $('<li></li>').append($addVideoButton);
 
 jQuery(document).ready(function() {

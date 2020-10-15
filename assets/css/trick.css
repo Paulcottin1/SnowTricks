@@ -1,0 +1,36 @@
+/** Trick Page */
+.trick-page img {
+  height: 1rem;
+  width: 1rem;
+  border: none;
+}
+
+.img-presentation img {
+  height: 40rem;
+}
+
+.trick-form input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #17a2b8;
+  padding-bottom: 5px;
+}
+
+.trick-form label {
+  display: block;
+}
+
+.trick-form input, textarea {
+  width: 100%;
+  border-color: #17a2b8;
+  border-radius: 2px;
+}
+
+.delete-button img {
+  height: 3em;
+  width: 3rem;
+  border: none;
+}
+
+/*# sourceMappingURL=trick.css.map */

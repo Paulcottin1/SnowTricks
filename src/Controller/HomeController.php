@@ -26,7 +26,7 @@ Class HomeController extends Controller
         $result = $paginator->paginate(
             $tricks,
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', 10)
+            $request->query->getInt('limit', 6)
         );
         return $this->render('home/index.html.twig', [
             'tricks' => $result

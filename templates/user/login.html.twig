@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     {% if error %}
@@ -8,11 +8,21 @@
             {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
-    <form action="{{ path('login') }}" method="post">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="_email" value="{{ last_username }}" />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="_password" />
-        <button type="submit">login</button>
-    </form>
+    <div class="register-login text-center container">
+        <h1> Connexion </h1>
+        <form action="{{ path('login') }}" method="post">
+            <div>
+                <label for="email" class="block">Email :</label>
+                <input type="text" id="email" name="_email" value="{{ last_username }}" />
+            </div>
+            <div>
+                <label for="password" class="block">Mot de passe :</label>
+                <input type="password" id="password" name="_password" />
+            </div>
+            <button type="submit" class="btn btn-info">Se connecter</button>
+        </form>
+        <div>
+            <a href="{{ path('register') }}"> S'inscrire </a>
+        </div>
+    </div>
 {% endblock %}
