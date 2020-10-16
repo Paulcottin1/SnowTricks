@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New user{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-        <h1>Create new user</h1>
-       <div>
-           {{ form_row(form.firstname) }}
-       </div>
+    <div class="register-login text-center container align-self-center">
+        {{ form_start(form) }}
+        <h1>Inscription</h1>
+        <div>
+            {{ form_row(form.firstname) }}
+        </div>
         <div>
             {{ form_row(form.lastname) }}
         </div>
@@ -17,6 +18,10 @@
         <div>
             {{ form_row(form.password) }}
         </div>
-        <button class="btn">{{ button_label|default('Enregister') }}</button>
-    {{ form_end(form) }}
+        <button class="btn btn-info">{{ button_label|default('S\'inscrire') }}</button>
+        {{ form_end(form) }}
+        <div>
+            <a href="{{ path('login') }}">Vous avez déjà un compte ?</a>
+        </div>
+    </div>
 {% endblock %}

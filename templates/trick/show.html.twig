@@ -3,44 +3,31 @@
 {% block title %}Trick{% endblock %}
 
 {% block body %}
-    <h1>Trick</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ trick.id }}</td>
-            </tr>
-            <tr>
-                <th>Chapo</th>
-                <td>{{ trick.chapo }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ trick.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ trick.content }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ trick.image }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('trick_index') }}">back to list</a>
-
-    <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
-
-    {{ include('trick/_delete_form.html.twig') }}
+    <div class="trick-page">
+        <div class="row justify-content-center margin-bottom margin-top">
+            <a href="{{ path('home') }}" class="btn btn-info col-md-2"> Retour </a>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="img-presentation justify-content-center row">
+            <img src="/assets/images/{{ trick.imageName }}" class="col-8">
+        </div>
+        <div class="row justify-content-center">
+            <h1 class="col-7">{{ trick.title }}</h1>
+            <div class="col-1 row">
+                <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="col-2"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
+                <a class="col-2">{{ include('trick/_delete_form.html.twig') }}</a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <p class="col-8">{{ trick.chapo }}</p>
+        </div>
+        <div class="row justify-content-center text-center">
+            <p class="col-8">{{ trick.content }}</p>
+        </div>
+        <div class="row justify-content-center">
+            <p class="col-2"> Créé le : {{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+            <p class="col-2"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </p>
+            <p class="col-2"> Créé par : {{ trick.user }} </p>
+        </div>
+    </div>
 {% endblock %}

@@ -1,0 +1,62 @@
+/** Home page */
+.slogan {
+  background: no-repeat url("/assets/images/slogan-background.jpg");
+  background-size: cover;
+  background-position: right;
+  height: 30rem;
+  margin-bottom: 20px;
+}
+
+.slogan span {
+  font-family: URW Chancery L, cursive;
+  font-size: 36px;
+  color: white;
+  text-shadow: 4px 3px 0 #7A7A7A, 5px 5px 6px rgba(0, 0, 0, 0.39);
+}
+
+#tricks ul {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.trick {
+  box-shadow: -1px 13px 30px -13px #545254;
+  border: 1px solid;
+  padding: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.trick img {
+  height: 12rem;
+  width: 100%;
+  border-bottom: 1px solid;
+  border-radius: 10px 10px 0 0;
+}
+
+.trick-text {
+  height: 3rem;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.trick-text .title {
+  border: 2px solid black;
+  color: black;
+  border-radius: 5px;
+}
+
+.trick-text img {
+  height: 1rem;
+  width: 1rem;
+  border: none;
+}
+
+.trick-text a {
+  padding-right: 0;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=home.css.map */
