@@ -32,4 +32,27 @@ Class HomeController extends Controller
             'tricks' => $result
         ]);
     }
+
+    /**
+     * Load more tricks
+     *
+     * @Route("/load", name="load")
+     * @return Response
+     */
+    public function loadMore(TrickRepository $repository, Request $request) : Response {
+        $tricks = $repository->findAll();
+        /**
+         * @var $paginator \Knp\Component\Pager\Paginator
+         */
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $tricks,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 3)
+        );
+
+        return $this->render('paging/paging-tricks.html.twig', [
+            'tricks' => $result
+        ]);
+    }
 }

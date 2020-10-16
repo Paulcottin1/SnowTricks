@@ -22,7 +22,7 @@
 .trick {
   box-shadow: -1px 13px 30px -13px #545254;
   border: 1px solid;
-  padding: 0;
+  padding: 0 !important;
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
