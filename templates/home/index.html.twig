@@ -7,18 +7,17 @@
         <span class="align-self-center"> Pray for the powder </span>
     </div>
     <div id="tricks" class="">
-        <ul class="row justify-content-center">
+        <ul class="row justify-content-center" id="ul-tricks">
             {% for trick in tricks %}
                 <li class="col-md-3 col-sm-6 trick">
-                    <img src="/assets/images/{{ trick.imageName }}">
+                    <img src="/assets/images/{{ trick.imageName }}" id="img-trick">
                     <div class="row justify-content-center trick-text">
-                        <a href="{{ path('trick_show', {'id': trick.id}) }}" class="col-8 title text-center">{{ trick.title }}</a>
+                        <a href="{{ path('trick_show', {'id': trick.id}) }}" class="col-8 title text-center" id="title">{{ trick.title }}</a>
                         {% if app.user %}
                             <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="col-1"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
                             <a class="col-1">{{ include('trick/_delete_form.html.twig') }}</a>
                         {% endif %}
                     </div>
-
                 </li>
             {% else %}
                 <li>
@@ -27,9 +26,7 @@
             {% endfor %}
         </ul>
         <div class="row justify-content-center">
-            <div class="navigation">
-                {{ knp_pagination_render(tricks) }}
-            </div>
+            <a class="btn btn-success loadbtn col-3" id="loadbtn" href="">Load More</a>
         </div>
     </div>
 {% endblock %}
