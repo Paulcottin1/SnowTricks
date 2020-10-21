@@ -2,7 +2,6 @@ $(document).ready(function(){
     var page = 3;
     $("#loadbtn").click(function(e){
         e.preventDefault();
-        console.log('yes');
         $.ajax({
             url : '/load',
             type :'GET',
@@ -16,10 +15,7 @@ $(document).ready(function(){
                 page = page + 1;
             },
             error:function(data) {
-                console.log('no');
-
-                $('#tricks').html(trick['title']);
-                $('#tricks').append();
+                alert('Impossible de charger des tricks');
             }
         });
     });

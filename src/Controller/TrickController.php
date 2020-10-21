@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Form\TrickType;
+use App\Manager\Uploader;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Uploader $uploader): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -39,9 +40,10 @@ class TrickController extends AbstractController
             $image = $form['image']->getData();
             $images = $form['images']->getData();
             $path = $this->getParameter('images_directory');
+            $trick = $uploader->upload($image, $path, $trick);
 
             foreach($images as $img) {
-                $img->upload($img->getImage(), $path);
+               $trick = $uploader->uploadMultiple($img, $path, $trick);
             }
 
             if(empty($image)) {
@@ -51,9 +53,7 @@ class TrickController extends AbstractController
                 );
                 return $this->redirectToRoute('trick_new');
             }
-                 
             $entityManager = $this->getDoctrine()->getManager();
-            $trick->upload($image, $path);
             $entityManager->persist($trick);
             $entityManager->flush();
             
@@ -80,7 +80,7 @@ class TrickController extends AbstractController
      * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
      * @Security("has_role('ROLE_USER')")
      */
-    public function edit(Request $request, Trick $trick): Response
+    public function edit(Request $request, Trick $trick, Uploader $uploader): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -89,10 +89,10 @@ class TrickController extends AbstractController
             $image = $form['image']->getData();
             $images = $form['images']->getData();
             $path = $this->getParameter('images_directory');
-            $trick->upload($image, $path);
+            $uploader->upload($image, $path, $trick);
 
             foreach($images as $img) {
-                $img->upload($img->getImage(), $path);
+                $uploader->uploadMultiple($img, $path, $trick);
             }
 
             $this->getDoctrine()->getManager()->flush();
