@@ -328,27 +328,6 @@ class Trick
         return $this;
     }
 
-    public function upload($image, $path)
-    {
-        if (null === $this->getImage()) {
-            return;
-        }
-        
-        $imageName = $image->getClientOriginalName();
-        $image->move(
-            $path,
-            $imageName
-        );
-
-        $this->setImage($image);
-        $this->setImageName($image->getClientOriginalName());
-   }
-
-   public function lifecycleFileUpload($image, $path)
-   {
-        $this->upload($image, $path);
-   }
-
    public function refreshUpdated()
    {
         $this->setUpdated(new \DateTime());

@@ -31,10 +31,10 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="">Profil</a>
+                            <a class="nav-link" href="{{ path('profil', {'id': app.user.id}) }} }}">Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Déconnexion</a>
+                            <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
                         </li>
                     {% endif %}
                 </ul>

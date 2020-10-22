@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <div class="register-login text-center container">
+        <h1> Votre profil </h1>
+        <img class="logo" src="/assets/images/{{ user.avatar }}" alt="Logo">
+        {{ form_start(form) }}
+            <div>
+                {{ form_row(form.avatar) }}
+                <p> Actuellement : {{ user.avatar }} </p>
+            </div>
+            <div>
+                {{ form_row(form.firstname) }}
+            </div>
+            <div>
+                {{ form_row(form.lastname) }}
+            </div>
+            <div>
+                {{ form_row(form.email) }}
+            </div>
+            <div>
+                {{ form_row(form.password) }}
+            </div>
+            <button type="submit" class="btn btn-info">Modifier</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
