@@ -14,7 +14,7 @@
         <div class="row justify-content-center">
             <h1 class="col-7">{{ trick.title }}</h1>
             <div class="col-1 row">
-                <a href="{{ path('trick_edit', {'id': trick.id}) }}" class="col-2"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
+                <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-2"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
                 <a class="col-2">{{ include('trick/_delete_form.html.twig') }}</a>
             </div>
         </div>

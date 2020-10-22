@@ -64,7 +64,7 @@ Class UserController extends AbstractController
 
 
     /**
-     * @Route("/profil/{id}", name="profil", methods={"GET","POST"})
+     * @Route("/profil/{slug}", name="profil", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @param UserPasswordEncoderInterface $encoder
