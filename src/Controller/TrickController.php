@@ -57,7 +57,7 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
             
-            return $this->redirectToRoute('trick_index');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('trick/new.html.twig', [
@@ -67,7 +67,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_show", methods={"GET"})
+     * @Route("/{slug}", name="trick_show", methods={"GET"})
      */
     public function show(Trick $trick): Response
     {
@@ -77,7 +77,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="trick_edit", methods={"GET","POST"})
      * @Security("has_role('ROLE_USER')")
      */
     public function edit(Request $request, Trick $trick, Uploader $uploader): Response
