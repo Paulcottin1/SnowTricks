@@ -10,6 +10,8 @@ class Uploader
     /**
      * @param $image
      * @param $path
+     * @param Trick $trick
+     * @return Trick|void
      */
     public function upload($image, $path, Trick $trick)
     {
@@ -28,6 +30,12 @@ class Uploader
         return $trick;
     }
 
+    /**
+     * @param $image
+     * @param $path
+     * @param Trick $trick
+     * @return Trick|void
+     */
     public function uploadMultiple($image, $path, Trick $trick)
     {
         if (null === $image->getImage()) {
