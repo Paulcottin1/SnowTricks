@@ -33,4 +33,13 @@
   border: none;
 }
 
+.medias {
+  height: auto;
+}
+
+.carousel-item img, iframe {
+  height: 17rem;
+  width: 100%;
+}
+
 /*# sourceMappingURL=trick.css.map */

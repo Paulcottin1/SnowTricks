@@ -1,3 +1,20 @@
+// Show/hidden trick media for small screen
+$(function () {
+    $("#loadMedia").on("click", function (e) {
+        e.preventDefault();
+        $("div.medias").removeClass("d-none");
+        $("#loadMedia").addClass("d-none");
+        $("#hideMedia").removeClass("d-none");
+    });
+    $("#hideMedia").on("click", function (e) {
+        e.preventDefault();
+        $("div.medias").addClass("d-none");
+        $("#loadMedia").removeClass("d-none");
+        $("#hideMedia").addClass("d-none");
+    });
+});
+
+// Upload multiple for images and videos
 var $collectionHolder;
 
 // setup an "add a tag" link
