@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\CommentType;
 use App\Form\TrickType;
 use App\Manager\Uploader;
+use App\Repository\CommentRepository;
 use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,21 +78,48 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="trick_show", methods={"GET"})
+     * @Route("/{slug}", name="trick_show", methods={"GET","POST"})
      * @param Trick $trick
      * @param ImageRepository $imageRepository
      * @param VideoRepository $videoRepository
+     * @param CommentRepository $commentRepository
+     * @param Request $request
+     * @param Paginator $paginator
      * @return Response
      */
-    public function show(Trick $trick, ImageRepository $imageRepository, VideoRepository $videoRepository): Response
+    public function show(Trick $trick, ImageRepository $imageRepository, VideoRepository $videoRepository, CommentRepository $commentRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($this->getUser())
+                ->setTrick($trick)
+                ->setCommentedAt(new \DateTime());
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($comment);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(), '_fragment' => 'comments']);
+        }
         $images = $imageRepository->findBy(['trick' => $trick->getId()]);
         $videos = $videoRepository->findBy(['trick' => $trick->getId()]);
+        $comments = $commentRepository->findBy(['trick' => $trick->getId()], ['id' => 'DESC']);
+
+        $result = $paginator->paginate(
+            $comments,
+            $request->query->getInt('page', 1),
+            $request->query->getInt('limit', 3)
+        );
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
             'images' => $images,
-            'videos' => $videos
+            'videos' => $videos,
+            'comments' => $result,
+            'form' => $form->createView(),
         ]);
     }
 

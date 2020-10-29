@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trick{% endblock %}
+{% block title %}{{ trick.title }}{% endblock %}
 
 {% block body %}
-    <div class="trick-page">
+    <div class="trick-page" data-trick="{{ trick.id }}" id="trick-page">
         <div class="row justify-content-center margin-bottom margin-top">
             <a href="{{ path('home') }}" class="btn btn-info col-md-2"> Retour </a>
             <div class="col-md-6"></div>
@@ -82,6 +82,45 @@
             <p class="col-2"> Créé le : {{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</p>
             <p class="col-2"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </p>
             <p class="col-2"> Créé par : {{ trick.user }} </p>
+        </div>
+        {% if app.user %}
+            <div class="form-comment">
+                <div class="row justify-content-center">
+                    <h3 class="col-8">Bonjour {{ app.user.firstname }}</h3>
+                </div>
+                <div class="row justify-content-center">
+                    {{ form_start(form) }}
+                    <div class="col-4">
+                        {{ form_row(form.comment) }}
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-info"> Commenter </button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="row justify-content-center">
+                <p class="col-8"> Connectez-vous pour écrire un commentaire</p>
+                <a class="btn btn-info col-8" href="{{ path('login') }}"> Se connecter</a>
+            </div>
+        {% endif %}
+        <div class="comments row justify-content-center" id="comments">
+            {% for comment in comments %}
+                <div class="col-8">
+                    <div>
+                        <img src="/assets/images/{{ comment.user.avatar }}">
+                        <p>{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                        <p> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
+                    </div>
+                    <div>
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row justify-content-center">
+            <a class="btn btn-success loadComments col-3" id="loadComments" href="">Load More</a>
         </div>
     </div>
 {% endblock %}

@@ -37,6 +37,8 @@ Class HomeController extends Controller
      * Load more tricks
      *
      * @Route("/load", name="load")
+     * @param TrickRepository $repository
+     * @param Request $request
      * @return Response
      */
     public function loadMore(TrickRepository $repository, Request $request) : Response {
