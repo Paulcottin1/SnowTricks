@@ -8,10 +8,12 @@
         <div class="col-md-6"></div>
     </div>
     {{ include('trick/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    <div class="text-center">
-        <p class="">ou</p>
-    </div>
-    <div class="delete-button">
-        <a class="text-center delete-button ">{{ include('trick/_delete_form.html.twig') }}</a>
-    </div>
+    {% if trick.user == app.user %}
+        <div class="text-center">
+            <p class="">ou</p>
+        </div>
+        <div class="delete-button">
+            <a class="text-center delete-button ">{{ include('trick/_delete_form.html.twig') }}</a>
+        </div>
+    {% endif %}
 {% endblock %}
