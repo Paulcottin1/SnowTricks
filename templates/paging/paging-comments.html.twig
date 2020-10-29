@@ -1,0 +1,14 @@
+{% block comment %}
+    {% for comment in comments %}
+        <div class="col-8">
+            <div>
+                <img src="/assets/images/{{ comment.user.avatar }}">
+                <p>{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                <p> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
+            </div>
+            <div>
+                <p>{{ comment.comment }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
