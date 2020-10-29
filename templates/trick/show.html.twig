@@ -81,7 +81,7 @@
         <div class="row justify-content-center">
             <p class="col-2"> Créé le : {{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</p>
             <p class="col-2"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </p>
-            <p class="col-2"> Créé par : {{ trick.user }} </p>
+            <p class="col-2"> Créé par : {{ trick.user.firstname }} {{ trick.user.lastname }} </p>
         </div>
         {% if app.user %}
             <div class="form-comment">
@@ -105,22 +105,24 @@
                 <a class="btn btn-info col-8" href="{{ path('login') }}"> Se connecter</a>
             </div>
         {% endif %}
-        <div class="comments row justify-content-center" id="comments">
-            {% for comment in comments %}
-                <div class="col-8">
-                    <div>
-                        <img src="/assets/images/{{ comment.user.avatar }}">
-                        <p>{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
-                        <p> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
+        {% if comments.items is not empty %}
+            <div class="comments row justify-content-center" id="comments">
+                {% for comment in comments %}
+                    <div class="col-8">
+                        <div>
+                            <img src="/assets/images/{{ comment.user.avatar }}">
+                            <p>{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
+                            <p> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
+                        </div>
+                        <div>
+                            <p>{{ comment.comment }}</p>
+                        </div>
                     </div>
-                    <div>
-                        <p>{{ comment.comment }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="row justify-content-center">
-            <a class="btn btn-success loadComments col-3" id="loadComments" href="">Load More</a>
-        </div>
+                {% endfor %}
+            </div>
+            <div class="row justify-content-center">
+                <a class="btn btn-success loadComments col-3" id="loadComments" href="">Load More</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

@@ -24,18 +24,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/", name="trick_index", methods={"GET"})
-     * @param TrickRepository $trickRepository
-     * @return Response
-     */
-    public function index(TrickRepository $trickRepository): Response
-    {
-        return $this->render('trick/index.html.twig', [
-            'tricks' => $trickRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      * @param Request $request
      * @param Uploader $uploader
@@ -52,6 +40,7 @@ class TrickController extends AbstractController
             $images = $form['images']->getData();
             $path = $this->getParameter('images_directory');
             $uploader->upload($image, $path, $trick);
+            $trick->setUser($this->getUser());
 
             foreach($images as $img) {
                $uploader->uploadMultiple($img, $path, $trick);
@@ -181,6 +170,6 @@ class TrickController extends AbstractController
             unlink($image);
         }
 
-        return $this->redirectToRoute('trick_index');
+        return $this->redirectToRoute('home');
     }
 }
