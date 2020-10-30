@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Trick;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,5 +36,4 @@ class CommentController extends AbstractController
             'comments' => $result
         ]);
     }
-
 }

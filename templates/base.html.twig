@@ -34,6 +34,9 @@
                             <a class="nav-link" href="{{ path('profil', {'slug': app.user.slug}) }}">Profil</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ path('trick_new') }}">Ajouter un trick</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ path('logout') }}">Déconnexion</a>
                         </li>
                     {% endif %}

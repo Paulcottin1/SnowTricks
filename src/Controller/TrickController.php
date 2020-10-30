@@ -4,12 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Entity\Video;
 use App\Form\CommentType;
 use App\Form\TrickType;
 use App\Manager\Uploader;
 use App\Repository\CommentRepository;
 use App\Repository\ImageRepository;
-use App\Repository\TrickRepository;
 use App\Repository\VideoRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +40,9 @@ class TrickController extends AbstractController
             $images = $form['images']->getData();
             $path = $this->getParameter('images_directory');
             $uploader->upload($image, $path, $trick);
-            $trick->setUser($this->getUser());
+            $trick
+                ->setUser($this->getUser())
+                ->setCreatedAt(new \DateTime());
 
             foreach($images as $img) {
                $uploader->uploadMultiple($img, $path, $trick);
@@ -53,6 +55,11 @@ class TrickController extends AbstractController
                 );
                 return $this->redirectToRoute('trick_new');
             }
+
+            foreach ($trick->getVideos() as $video) {
+                $this->setYoutubeKey($video);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($trick);
             $entityManager->flush();
@@ -130,9 +137,14 @@ class TrickController extends AbstractController
             $images = $form['images']->getData();
             $path = $this->getParameter('images_directory');
             $uploader->upload($image, $path, $trick);
+            $trick->setUpdatedAt(new \DateTime());
 
             foreach($images as $img) {
                 $uploader->uploadMultiple($img, $path, $trick);
+            }
+
+            foreach ($trick->getVideos() as $video) {
+                $this->setYoutubeKey($video);
             }
 
             $this->getDoctrine()->getManager()->flush();
@@ -152,9 +164,11 @@ class TrickController extends AbstractController
      *     message = "Ce n'est pas votre trick, vous ne pouvez pas le supprimer")
      * @param Request $request
      * @param Trick $trick
+     * @param CommentController $commentController
+     * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function delete(Request $request, Trick $trick): Response
+    public function delete(Request $request, Trick $trick, CommentController $commentController, CommentRepository $commentRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -171,5 +185,19 @@ class TrickController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @param Video $video
+     * @return Video
+     */
+    public function setYoutubeKey(Video $video)
+    {
+        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->getUrl(), $match)) {
+            $videoId = $match[1];
+            $video->setUrl('https://www.youtube.com/embed/' . $videoId);
+        }
+
+        return $video;
     }
 }
