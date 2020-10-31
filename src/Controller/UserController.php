@@ -101,7 +101,7 @@ Class UserController extends AbstractController
             $entityManager->flush();
             $this->addFlash('notice', 'Votre compte a été mis à jour.');
 
-            return $this->redirectToRoute('profil', ['id' => $user->getId()]);
+            return $this->redirectToRoute('profil', ['slug' => $user->getSlug()]);
         }
 
         return $this->render('user/profil.html.twig', [

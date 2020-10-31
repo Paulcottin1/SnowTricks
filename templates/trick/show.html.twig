@@ -14,12 +14,19 @@
         <div class="row justify-content-center">
             <h1 class="col-7">{{ trick.title }}</h1>
             <div class="col-1 row">
-                <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-2"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
-                <a class="col-2">{{ include('trick/_delete_form.html.twig') }}</a>
+                {% if app.user %}
+                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-2"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
+                    {% if trick.user == app.user %}
+                        <a class="col-2">{{ include('trick/_delete_form.html.twig') }}</a>
+                    {% endif %}
+                {% endif %}
             </div>
         </div>
         <div class="row justify-content-center">
             <p class="col-8">{{ trick.chapo }}</p>
+        </div>
+        <div class="row justify-content-center">
+            <p class="col-8">Catégorie : {{ trick.category.title }}</p>
         </div>
         {% if (images) or (videos) %}
             <div class="medias row justify-content-center d-none d-sm-flex">
@@ -79,9 +86,8 @@
             <p class="col-8">{{ trick.content }}</p>
         </div>
         <div class="row justify-content-center">
-            <p class="col-2"> Créé le : {{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</p>
-            <p class="col-2"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </p>
-            <p class="col-2"> Créé par : {{ trick.user.firstname }} {{ trick.user.lastname }} </p>
+            <p class="col-4"> Créé le : {{ trick.createdAt ? trick.createdAt|date('d/m/y') : '' }} par {{ trick.user.firstname }} {{ trick.user.lastname }} </p>
+            <p class="col-4"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('d/m/y') : '' }} </p>
         </div>
         {% if app.user %}
             <div class="form-comment">

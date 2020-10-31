@@ -12,7 +12,6 @@ $(document).ready(function(){
                 'trick': trick,
             },
             success: function(data) {
-                console.log(data);
                 var div = document.getElementById('comments');
                 div.insertAdjacentHTML('beforeend', data);
                 page = page + 1;
