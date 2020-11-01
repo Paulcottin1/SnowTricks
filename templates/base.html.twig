@@ -48,6 +48,11 @@
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('warning') %}
+            <div class="flash-warning">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
         <footer class="container-fluid d-flex justify-content-center" style="background-color: #e3f2fd;">
             <p class="align-self-center">© COPYRIGHT <a href="http://paulcottin.com/">PAUL COTTIN</a></p>
