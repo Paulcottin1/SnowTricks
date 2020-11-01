@@ -50,7 +50,7 @@ class TrickController extends AbstractController
 
             if(empty($image)) {
                 $this->addFlash(
-                    'notice',
+                    'warning',
                     'Vous devez ajouter une image de présentation'
                 );
                 return $this->redirectToRoute('trick_new');
@@ -63,7 +63,11 @@ class TrickController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($trick);
             $entityManager->flush();
-            
+
+            $this->addFlash(
+                'notice',
+                'Votre trick a bien été crée !'
+            );
             return $this->redirectToRoute('home');
         }
 
@@ -149,6 +153,10 @@ class TrickController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'notice',
+                'Le trick a bien été modifié !'
+            );
             return $this->redirectToRoute('home');
         }
 
@@ -184,6 +192,10 @@ class TrickController extends AbstractController
             unlink($image);
         }
 
+        $this->addFlash(
+            'notice',
+            'Le trick a été supprimé'
+        );
         return $this->redirectToRoute('home');
     }
 

@@ -35,6 +35,10 @@ Class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->addFlash(
+                'notice',
+                'Votre compte a bien été créé !'
+            );
             return $this->redirectToRoute('home');
         }
         return $this->render('user/register.html.twig', [
@@ -99,8 +103,11 @@ Class UserController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('notice', 'Votre compte a été mis à jour.');
 
+            $this->addFlash(
+                'notice',
+                'Votre compte a été mis à jour'
+            );
             return $this->redirectToRoute('profil', ['slug' => $user->getSlug()]);
         }
 
