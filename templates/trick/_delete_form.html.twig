@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('trick_delete', {'id': trick.id}) }}" onsubmit="return confirm('Vous voulez vraiment supprimer ce trick?');">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.id) }}">
-    <button style="background-color: transparent;border: none;padding: 0;"><img src="/assets/images/logo-delete.png" alt="supprimer"></button>
+    <button style="background-color: transparent;border: none;padding: 0;"><img src="{{ asset('/assets/images/logo-delete.png') }}" alt="supprimer"></button>
 </form>

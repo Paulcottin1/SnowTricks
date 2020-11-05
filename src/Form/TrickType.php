@@ -23,7 +23,7 @@ class TrickType extends AbstractType
                 'label' => 'Chapo :'
             ])
             ->add('title', TextType::class, [
-                'label' => 'Titre :'
+                'label' => 'Titre :',
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Description du trick :'

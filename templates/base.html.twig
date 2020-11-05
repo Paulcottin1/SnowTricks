@@ -10,8 +10,8 @@
         {% endblock %}
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="/assets/images/logo.png" alt="Logo"></a>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #98DEC4;">
+            <a class="navbar-brand" href="{{ path('home') }}"><img class="logo" src="{{ asset('/assets/images/logo.png') }}" alt="Logo"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse ml-auto" id="navbarNavAltMarkup">
@@ -20,7 +20,7 @@
                         <a class="nav-link" href="{{ path('home') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/#tricks">Tricks</a>
+                        <a class="nav-link " href="/#tricks">Tricks</a>
                     </li>
                     {% if not app.user %}
                         <li class="nav-item">
@@ -54,8 +54,8 @@
             </div>
         {% endfor %}
         {% block body %}{% endblock %}
-        <footer class="container-fluid d-flex justify-content-center" style="background-color: #e3f2fd;">
-            <p class="align-self-center">© COPYRIGHT <a href="http://paulcottin.com/">PAUL COTTIN</a></p>
+        <footer class="container-fluid d-flex justify-content-center" style="background-color: #98DEC4;">
+            <p class="align-self-center nav-link">© COPYRIGHT <a href="http://paulcottin.com/" style="color: white;">PAUL COTTIN</a></p>
         </footer>
         {% block javascripts %}{% endblock %}
         <script language = "javascript" src = "https://code.jquery.com/jquery-2.2.4.min.js"></script>

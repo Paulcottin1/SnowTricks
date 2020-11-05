@@ -3,132 +3,148 @@
 {% block title %}{{ trick.title }}{% endblock %}
 
 {% block body %}
-    <div class="trick-page" data-trick="{{ trick.id }}" id="trick-page">
-        <div class="row justify-content-center margin-bottom margin-top">
-            <a href="{{ path('home') }}" class="btn btn-info col-md-2"> Retour </a>
-            <div class="col-md-6"></div>
-        </div>
-        <div class="img-presentation justify-content-center row">
-            <img src="/assets/images/{{ trick.imageName }}" class="col-8">
-        </div>
+    <div class="slogan row justify-content-center background-color">
+        <h1 class="col-8 text-center padding-top-h1">{{ trick.title }}</h1>
+    </div>
+    <div class="trick-page background-margin" data-trick="{{ trick.id }}" id="trick-page">
         <div class="row justify-content-center">
-            <h1 class="col-7">{{ trick.title }}</h1>
-            <div class="col-1 row">
+            <div class="border-shadow col-lg-8 col-md-8 col-sm-10 col-10 padding">
+                <div class="img-presentation">
+                    <img src="{{ asset('/assets/images/'~ trick.imageName ) }}" class="border-shadow">
+                </div>
+                <div class="row justify-content-center margin-top">
+                    <div class="col-8"></div>
+                    <div class="col-4 row justify-content-center logo-edit">
+                        {% if app.user %}
+                            <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-2"><img src="{{ asset('/assets/images/logo-edit.png') }}" alt="modifier" class=""></a>
+                            {% if trick.user == app.user %}
+                                <a class="col-2">{{ include('trick/_delete_form.html.twig') }}</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <p class="col-12 text-green">Catégorie : {{ trick.category.title }}</p>
+                </div>
+                <div class="row justify-content-center">
+                    <p class="col-12 text-green">{{ trick.chapo }}</p>
+                </div>
+                <div class="separator"></div>
+                {% if (images) or (videos) %}
+                    <div class="medias row justify-content-center d-none d-sm-flex">
+                        <div class="photos col-lg-6 col-md-8">
+                            <div id="carousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner border-shadow margin-top">
+                                    {% for image in images %}
+                                        <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
+                                            <img src="{{ asset('/assets/images/'~ image.name ) }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="videos col-lg-6 col-md-8">
+                            <div id="carousel-videos" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner border-shadow margin-top">
+                                    {% for video in videos %}
+                                        <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
+                                            <iframe src="{{ video.url }}" frameborder="0" allowfullscreen></iframe>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel-videos" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel-videos" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a href="#" id="loadMedia" class="d-md-block d-lg-none">
+                            <button class="btn btn-green margin-top padding-right padding-left">Afficher les médias</button>
+                        </a>
+                        <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
+                            <button class="btn btn-green margin-top padding-right padding-left">Masquer les médias</button>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="row text-center justify-content-center">
+                        <p class="col-8"> Pas de média pour ce trick</p>
+                    </div>
+                {% endif %}
+                <div class="separator margin-bottom margin-top"></div>
+                <div class="row justify-content-center text-justify">
+                    <p class="col-12 text-green">{{ trick.content }}</p>
+                </div>
+                <div class="separator margin-bottom margin-top"></div>
+                <div class="row justify-content-center text-center">
+                    <p class="col-6 text-green-light"> Créé le : {{ trick.createdAt ? trick.createdAt|date('d/m/y') : '' }} par {{ trick.user.firstname }} {{ trick.user.lastname }} </p>
+                    <p class="col-6 text-green-light"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('d/m/y') : '' }} </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center margin-top">
+            <div class="border-shadow col-lg-8 col-md-8 col-sm-10 col-10 padding background-pine-white-square">
                 {% if app.user %}
-                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-2"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
-                    {% if trick.user == app.user %}
-                        <a class="col-2">{{ include('trick/_delete_form.html.twig') }}</a>
-                    {% endif %}
+                    <div class="form-comment">
+                        <div class="row justify-content-center margin-top margin-bottom">
+                            <div class="col-lg-7 col-md-7 col-sm-10 col-10 margin-top">
+                                {{ form_start(form) }}
+                                {{ form_row(form.comment) }}
+                            </div>
+                            <div class="row col-lg-3 col-md-3 col-sm-10 col-10 justify-content-center margin-top">
+                                <button type="submit" class="btn btn-green padding-left padding-right"> Commenter </button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="row justify-content-center">
+                        <p class="col-12 text-green text-center"> Connectez-vous pour écrire un commentaire</p>
+                    </div>
+                    <div class="row justify-content-center">
+                        <a class="btn btn-green col-lg-3 col-md-3 col-sm-10 col-10" href="{{ path('login') }}"> Se connecter</a>
+                    </div>
                 {% endif %}
             </div>
         </div>
-        <div class="row justify-content-center">
-            <p class="col-8">{{ trick.chapo }}</p>
-        </div>
-        <div class="row justify-content-center">
-            <p class="col-8">Catégorie : {{ trick.category.title }}</p>
-        </div>
-        {% if (images) or (videos) %}
-            <div class="medias row justify-content-center d-none d-sm-flex">
-                <div class="photos col-lg-4 col-md-8">
-                    <div id="carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            {% for image in images %}
-                                <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
-                                    <img src="/assets/images/{{ image.name }}">
+        <div class="row justify-content-center margin-top margin-bottom">
+            <div class="col-lg-8 col-md-8 col-sm-10 col-10 border-shadow padding">
+                {% if comments.items is not empty %}
+                    <div class="comments row" id="comments">
+                        {% for comment in comments %}
+                            <div class="col-12 row">
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+                                    <img src="{{ asset('/assets/images/'~ comment.user.avatar ) }}">
                                 </div>
-                            {% endfor %}
-                        </div>
-                        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="videos col-lg-4 col-md-8">
-                    <div id="carousel-videos" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            {% for video in videos %}
-                                <div class="carousel-item {% if loop.index0 == 0 %} active {% endif %}">
-                                    <iframe src="{{ video.url }}" frameborder="0" allowfullscreen></iframe>
+                                <div class="col-10 col-lg-10 col-md-10 col-sm-12 row">
+                                    <p class="col-lg-4 col-md-4 col-sm-12 col-12 text-green"> {{ comment.user.firstname }} {{ comment.user.lastname }} </p>
+                                    <p class="col-lg-6 col-md-6 col-sm-12 col-12 text-green-light"> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
                                 </div>
-                            {% endfor %}
-                        </div>
-                        <a class="carousel-control-prev" href="#carousel-videos" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carousel-videos" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+                                <div class="col-12 row">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-12 text-green-light"></div>
+                                    <p class="separator padding-bottom col-lg-10 col-md-10 col-sm-12 col-12 text-green">{{ comment.comment }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                </div>
+                    <div class="row justify-content-center">
+                        <a class="btn btn-green loadComments col-lg-3 col-md-3 col-sm-10 col-10 margin-bottom" id="loadComments" href="">Charger plus</a>
+                    </div>
+                {% endif %}
             </div>
-            <div class="text-center">
-                <a href="#" id="loadMedia" class="d-md-block d-lg-none">
-                    <button class="btn btn-info">Afficher les médias</button>
-                </a>
-                <a href="#" id="hideMedia" class="d-none d-md-none d-lg-none">
-                    <button class="btn btn-info">Masquer les médias</button>
-                </a>
-            </div>
-        {% else %}
-            <div class="row text-center justify-content-center">
-                <p class="col-8"> Pas de média pour ce trick</p>
-            </div>
-        {% endif %}
-        <div class="row justify-content-center text-center">
-            <p class="col-8">{{ trick.content }}</p>
         </div>
-        <div class="row justify-content-center">
-            <p class="col-4"> Créé le : {{ trick.createdAt ? trick.createdAt|date('d/m/y') : '' }} par {{ trick.user.firstname }} {{ trick.user.lastname }} </p>
-            <p class="col-4"> Mis à jour le : {{ trick.updatedAt ? trick.updatedAt|date('d/m/y') : '' }} </p>
-        </div>
-        {% if app.user %}
-            <div class="form-comment">
-                <div class="row justify-content-center">
-                    <h3 class="col-8">Bonjour {{ app.user.firstname }}</h3>
-                </div>
-                <div class="row justify-content-center">
-                    {{ form_start(form) }}
-                    <div class="col-4">
-                        {{ form_row(form.comment) }}
-                    </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-info"> Commenter </button>
-                    </div>
-                    {{ form_end(form) }}
-                </div>
-            </div>
-        {% else %}
-            <div class="row justify-content-center">
-                <p class="col-8"> Connectez-vous pour écrire un commentaire</p>
-                <a class="btn btn-info col-8" href="{{ path('login') }}"> Se connecter</a>
-            </div>
-        {% endif %}
-        {% if comments.items is not empty %}
-            <div class="comments row justify-content-center" id="comments">
-                {% for comment in comments %}
-                    <div class="col-8">
-                        <div>
-                            <img src="/assets/images/{{ comment.user.avatar }}">
-                            <p>{{ comment.user.firstname }} {{ comment.user.lastname }}</p>
-                            <p> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
-                        </div>
-                        <div>
-                            <p>{{ comment.comment }}</p>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="row justify-content-center">
-                <a class="btn btn-success loadComments col-3" id="loadComments" href="">Load More</a>
-            </div>
-        {% endif %}
     </div>
 {% endblock %}

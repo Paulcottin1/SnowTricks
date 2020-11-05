@@ -37,13 +37,13 @@ class Trick
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=13)
      */
     private $title;
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1500)
      */
     private $content;
 

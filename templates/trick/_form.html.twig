@@ -1,47 +1,54 @@
-<div class="form-trick">
-        <div class="img-presentation justify-content-center row">
-                <img src="/assets/images/{{ trick.imageName }}" alt="{{ trick.imageName }}" class="img-trick-principale col-8">
-        </div>
-        <div class="row justify-content-center">
-                <div class="trick-form col-8">
-                        {{ form_start(form) }}
-                        <div>
-                                {{ form_row(form.title) }}
-                        </div>
-                        <div>
-                                {{ form_row(form.chapo) }}
-                        </div>
-                        <div>
-                                {{ form_row(form.content) }}
-                        </div>
-                        <div class="">
-                                {{form_row(form.image) }}
-                        </div>
-                        <div class="">
-                                {{form_row(form.category) }}
-                        </div>
-                        <div class="row justify-content-center margin-top">
-                                <div class="col-6 text-center">
-                                        <p>Ajouter des images explicatives</p>
-                                        <ul class="image" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
-                                                {% for image in form.images %}
-                                                        <li>{{ form_row(image.image) }}</li>
-                                                {% endfor %}
-                                        </ul>
+<div class="row justify-content-center">
+        <div class="form-trick border-shadow col-lg-8 col-md-8 col-sm-10 col-10 padding background-margin margin-bottom">
+                <div class="img-presentation justify-content-center">
+                        <img src="{{ asset('/assets/images/'~trick.imageName ) }}" alt="{{ trick.imageName }}" class="border-shadow">
+                </div>
+                <div class="margin-top text-green">
+                        <div class="trick-form">
+                                {{ form_start(form) }}
+                                <div class="margin-top">
+                                        {{ form_row(form.title) }}
                                 </div>
-                                <div class="col-6 text-center">
-                                        <p>Ajouter des liens de vidéos (youtube uniquement)</p>
-                                        <ul class="video" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-                                                {% for video in form.videos %}
-                                                        <li>{{ form_row(video.url) }}</li>
-                                                {% endfor %}
-                                        </ul>
+                                <div class="margin-top">
+                                        {{ form_row(form.chapo) }}
                                 </div>
+                                <div class="margin-top">
+                                        {{ form_row(form.content) }}
+                                </div>
+                                <div class="margin-top">
+                                        {{form_row(form.image) }}
+                                </div>
+                                <div class="margin-top">
+                                        {{form_row(form.category) }}
+                                </div>
+                                <div class="separator margin-bottom margin-top"></div>
+                                <div class="row justify-content-center margin-top">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-center row separator margin-bottom">
+                                                <p class="col-12">Ajouter des images explicatives</p>
+                                                <ul class="image col-12 " data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+                                                        {% for image in form.images %}
+                                                                <div>
+                                                                        <li>{{ form_row(image.image) }}</li>
+                                                                        <p> Actuellement : {{ image.vars.value.name }}</p>
+                                                                </div>
+                                                        {% endfor %}
+                                                </ul>
+                                        </div>
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-12 text-center separator margin-bottom">
+                                                <p class="col-12">Ajouter des liens de vidéos (youtube uniquement)</p>
+                                                <ul class="video col-12" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+                                                        {% for video in form.videos %}
+                                                                <li class="margin-top">{{ form_row(video.url) }}</li>
+                                                        {% endfor %}
+                                                </ul>
+                                        </div>
+                                </div>
+                                <div class="text-center">
+                                        <button class="btn btn-green padding-right padding-left">{{ button_label|default('Enregister') }}</button>
+                                </div>
+                                {{ form_end(form) }}
                         </div>
-                        <div class="text-center">
-                                <button class="btn btn-info">{{ button_label|default('Enregister') }}</button>
-                        </div>
-                        {{ form_end(form) }}
                 </div>
         </div>
 </div>
+

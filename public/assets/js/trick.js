@@ -18,10 +18,10 @@ $(function () {
 var $collectionHolder;
 
 // setup an "add a tag" link
-var $addTagButton = $('<button type="button" class="add_tag_link btn btn-info">+</button>');
+var $addTagButton = $('<button type="button" class="add_tag_link btn btn-green padding-left padding-right margin-top"> Ajouter une photo</button>');
 var $newLinkLi = $('<li></li>').append($addTagButton);
 
-var $addVideoButton = $('<button type="button" class="add_tag_link btn btn-info">+</button>');
+var $addVideoButton = $('<button type="button" class="add_tag_link btn btn-green padding-left padding-right margin-top"> Ajouter une vidéo </button>');
 var $newVideoLi = $('<li></li>').append($addVideoButton);
 
 jQuery(document).ready(function() {
@@ -73,6 +73,6 @@ function addTagForm($collectionHolder, $newLinkLi) {
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<li class="margin-top"></li>').append(newForm);
     $newLinkLi.before($newFormLi);
 }

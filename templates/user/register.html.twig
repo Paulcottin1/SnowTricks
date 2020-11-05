@@ -3,25 +3,29 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="register-login text-center container align-self-center">
-        {{ form_start(form) }}
-        <h1>Inscription</h1>
-        <div>
-            {{ form_row(form.firstname) }}
-        </div>
-        <div>
-            {{ form_row(form.lastname) }}
-        </div>
-        <div>
-            {{ form_row(form.email) }}
-        </div>
-        <div>
-            {{ form_row(form.password) }}
-        </div>
-        <button class="btn btn-info">{{ button_label|default('S\'inscrire') }}</button>
-        {{ form_end(form) }}
-        <div>
-            <a href="{{ path('login') }}">Vous avez déjà un compte ?</a>
+    <div class="slogan row justify-content-center background-color">
+        <h1 class="col-8 text-center padding-top-h1">INSCRIPTION</h1>
+    </div>
+    <div class="row justify-content-center background-margin">
+        <div class="register-login text-center col-lg-6 col-md-6 col-sm-10 col-10 align-self-center border-shadow">
+            {{ form_start(form) }}
+            <div class="margin-bottom text-green">
+                {{ form_row(form.firstname) }}
+            </div>
+            <div class="margin-bottom text-green">
+                {{ form_row(form.lastname) }}
+            </div>
+            <div class="margin-bottom text-green">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="margin-bottom text-green">
+                {{ form_row(form.password) }}
+            </div>
+            <button class="btn btn-green padding-right padding-left">{{ button_label|default('S\'inscrire') }}</button>
+            {{ form_end(form) }}
+            <div>
+                <a href="{{ path('login') }}" class="text-green">Vous avez déjà un compte ?</a>
+            </div>
         </div>
     </div>
 {% endblock %}
