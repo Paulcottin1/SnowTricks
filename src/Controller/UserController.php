@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Form\ForgotPasswordType;
 use App\Form\ProfileType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -114,6 +118,56 @@ Class UserController extends AbstractController
         return $this->render('user/profil.html.twig', [
             'form' => $form->createView(),
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route ("/mot-de-passe-oublie", name="forgot_password", methods={"GET","POST"})
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @param UserRepository $userRepository
+     * @param MailerInterface $mailer
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    public function forgotPassword(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository, MailerInterface $mailer)
+    {
+        $user = new User;
+        $form = $this->createForm(ForgotPasswordType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $user = $userRepository->findOneBy(['email' => $user->getEmail()]);
+            if($user === null) {
+                $this->addFlash('warning', 'Aucun compte lié à cette adresse e-mail');
+                $this->redirectToRoute('forgot_password');
+            } else {
+                $randomPassword = sha1(random_bytes(10));
+                $email = (new Email())
+                    ->from('snowtricks@contact.fr')
+                    ->to($user->getEmail())
+                    ->subject('Mot de passe oublié')
+                    ->html(
+                        $this->renderView(
+                            'email/forgot.html.twig',
+                            array( 'user' => $user, 'password' => $randomPassword)
+                        ),
+                        'text/html'
+                    );
+                $mailer->send($email);
+
+                $encoded = $encoder->encodePassword($user, $randomPassword);
+                $user->setPassword($encoded);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('notice', 'Un nouveau mot de passe vous a été envoyé sur votre boite mail.');
+                $this->redirectToRoute('forgot_password');
+            }
+        }
+
+        return $this->render('user/forgot-password.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
