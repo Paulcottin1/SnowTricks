@@ -1,25 +1,15 @@
 /** Register/Login */
 
 .register-login {
-  border: 1px solid;
+  background: no-repeat url("/assets/images/background-white-pine.jpg");
+  background-position: bottom left;
+  background-size: auto;
   padding: 30px;
   margin-bottom: 20px;
   margin-top: 20px;
+  background-color: white;
 }
 
 .register-login label {
   display: block;
-}
-
-.register-login button {
-  margin-top: 10px;
-}
-
-@media (min-width: 415px) {
-  .register-login {
-    width: 50%;
-    position: absolute;
-    top: 15%;
-    left: 25%;
-  }
 }

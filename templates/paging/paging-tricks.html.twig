@@ -1,13 +1,13 @@
 {% block paging %}
     {% for trick in tricks %}
-        <li class="col-md-3 col-sm-6 trick">
-            <img src="/assets/images/{{ trick.imageName }}" id="img-trick">
-            <div class="row justify-content-center trick-text">
-                <a href="{{ path('trick_show', {'slug': trick.slug}) }}" class="col-8 title text-center" id="title">{{ trick.title }}</a>
+        <li class=" col-lg-3 col-md-4 col-sm-10 col-10 trick border-shadow background-white">
+            <img src="{{ asset('/assets/images/'~ trick.imageName ) }}" id="img-trick" class="border-shadow margin-bottom">
+            <div class="row justify-content-center trick-text margin-bottom">
+                <a href="{{ path('trick_show', {'slug': trick.slug}) }}" class="col-6 title text-center btn-green margin-bottom" id="title">{{ trick.title }}</a>
                 {% if app.user %}
-                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-1"><img src="/assets/images/logo-edit.png" alt="modifier"></a>
+                    <a href="{{ path('trick_edit', {'slug': trick.slug}) }}" class="col-1 margin-top"><img src="{{ asset('/assets/images/logo-edit.png') }}" alt="modifier"></a>
                     {% if trick.user == app.user %}
-                        <a class="col-1">{{ include('trick/_delete_form.html.twig') }}</a>
+                        <a class="col-1 margin-top">{{ include('trick/_delete_form.html.twig') }}</a>
                     {% endif %}
                 {% endif %}
             </div>

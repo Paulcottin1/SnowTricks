@@ -1,12 +1,20 @@
 /** Trick Page */
-.trick-page img {
-  height: 1rem;
-  width: 1rem;
+.logo-edit img {
+  height: 20px;
+  width: 20px;
+  border: none;
+}
+
+.comments img {
+  height: 60px;
+  width: 60px;
   border: none;
 }
 
 .img-presentation img {
-  height: 40rem;
+  height: auto;
+  padding: 0;
+  width: 100%;
 }
 
 .trick-form input {
@@ -19,12 +27,6 @@
 
 .trick-form label {
   display: block;
-}
-
-.trick-form input, textarea {
-  width: 100%;
-  border-color: #17a2b8;
-  border-radius: 2px;
 }
 
 .delete-button img {

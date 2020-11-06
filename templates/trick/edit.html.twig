@@ -3,17 +3,16 @@
 {% block title %}Modification d'un trick{% endblock %}
 
 {% block body %}
-    <div class="row justify-content-center margin-bottom margin-top">
-        <a href="{{ path('home') }}" class="btn btn-info col-md-2"> Retour </a>
-        <div class="col-md-6"></div>
+    <div class="slogan row justify-content-center background-color">
+        <h1 class="col-8 text-center padding-top-h1">Modification du trick</h1>
     </div>
     {{ include('trick/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
     {% if trick.user == app.user %}
-        <div class="text-center">
+        <div class="text-center text-green">
             <p class="">ou</p>
         </div>
-        <div class="delete-button">
-            <a class="text-center delete-button ">{{ include('trick/_delete_form.html.twig') }}</a>
+        <div class="delete-button margin-bottom">
+            <a class="text-center delete-button">{{ include('trick/_delete_form.html.twig') }}</a>
         </div>
     {% endif %}
 {% endblock %}

@@ -32,7 +32,7 @@ Class ProfileType extends AbstractType
             ])
             ->add('avatar', FileType::class,[
                 'data_class' => null,
-                'label' => 'Avatar :',
+                'label' => 'Changer votre avatar :',
                 'required' => false,
                 'empty_data' => $user->getAvatar(),
 

@@ -48,6 +48,22 @@ class TrickController extends AbstractController
                $uploader->uploadMultiple($img, $path, $trick);
             }
 
+            if(strlen($trick->getTitle()) > 13 ) {
+                $this->addFlash(
+                    'warning',
+                    'Le titre doit contenir 13 caractères maximum'
+                );
+                return $this->redirectToRoute('trick_new');
+            }
+
+            if(strlen($trick->getContent()) > 1500 ) {
+                $this->addFlash(
+                    'warning',
+                    'La description doit contenir 1500 caractères maximum'
+                );
+                return $this->redirectToRoute('trick_new');
+            }
+
             if(empty($image)) {
                 $this->addFlash(
                     'warning',
@@ -142,6 +158,22 @@ class TrickController extends AbstractController
             $path = $this->getParameter('images_directory');
             $uploader->upload($image, $path, $trick);
             $trick->setUpdatedAt(new \DateTime());
+
+            if(strlen($trick->getTitle()) > 13 ) {
+                $this->addFlash(
+                    'warning',
+                    'Le titre doit contenir 13 caractères maximum'
+                );
+                return $this->redirectToRoute('trick_edit', array('slug' => $trick->getSlug()));
+            }
+
+            if(strlen($trick->getContent()) > 1500 ) {
+                $this->addFlash(
+                    'warning',
+                    'La description doit contenir 1500 caractères maximum'
+                );
+                return $this->redirectToRoute('trick_edit', array('slug' => $trick->getSlug()));
+            }
 
             foreach($images as $img) {
                 $uploader->uploadMultiple($img, $path, $trick);
