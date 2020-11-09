@@ -4,7 +4,7 @@
 
 {% block body %}
     {% if error %}
-        <div class="alert alert-danger">
+        <div class="flash-warning">
             {{ error.messageKey|trans(error.messageData, 'security') }}
         </div>
     {% endif %}
@@ -27,7 +27,9 @@
             <div>
                 <a href="{{ path('register') }}" class="text-green"> S'inscrire </a>
             </div>
+            <div>
+                <a href="{{ path('forgot_password') }}" class="text-green"> Mot de passe oublié ? </a>
+            </div>
         </div>
     </div>
-
 {% endblock %}
