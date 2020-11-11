@@ -34,7 +34,8 @@ Class UserController extends AbstractController
             $encoded = $encoder->encodePassword($user, $password);
             $user->setRole('ROLE_USER')
                 ->setAvatar('default-avatar.png')
-                ->setPassword($encoded);
+                ->setPassword($encoded)
+                ->setCreatedDate(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

@@ -42,7 +42,8 @@ class TrickController extends AbstractController
             $uploader->upload($image, $path, $trick);
             $trick
                 ->setUser($this->getUser())
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTime());
 
             foreach($images as $img) {
                $uploader->uploadMultiple($img, $path, $trick);
