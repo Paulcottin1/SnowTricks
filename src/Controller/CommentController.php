@@ -4,9 +4,10 @@
 namespace App\Controller;
 
 
-use App\Entity\Trick;
+use App\Entity\Comment;
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,5 +36,42 @@ class CommentController extends AbstractController
         return $this->render('paging/paging-comments.html.twig', [
             'comments' => $result
         ]);
+    }
+
+    /**
+     * @Route("/{id}/approved", name="approved", methods={"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Comment $comment
+     * @return Response
+     */
+    public function approved(Comment $comment) : Response
+    {
+        $comment->setApproved(true);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash(
+            'notice',
+            'Le commentaire a bien été approuvé'
+        );
+        return $this->redirectToRoute('admin_comments');
+    }
+
+    /**
+     * @Route("/{id}/delete-comment", name="delete_comment", methods={"GET","POST"})
+     * @Security("has_role('ROLE_ADMIN')")
+     * @param Comment $comment
+     * @return Response
+     */
+    public function delete(Comment $comment) : Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($comment);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'Le commentaire a bien été supprimé'
+        );
+        return $this->redirectToRoute('admin_comments');
     }
 }
