@@ -206,7 +206,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/{id}", name="trick_delete", methods={"DELETE"})
-     * @Security("has_role('ROLE_USER') and user == trick.getUser()",
+     * @Security("has_role('ROLE_USER') and user == trick.getUser() or has_role('ROLE_ADMIN')",
      *     message = "Ce n'est pas votre trick, vous ne pouvez pas le supprimer")
      * @param Request $request
      * @param Trick $trick
