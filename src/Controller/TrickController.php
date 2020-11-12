@@ -113,13 +113,18 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setUser($this->getUser())
                 ->setTrick($trick)
-                ->setCommentedAt(new \DateTime());
+                ->setCommentedAt(new \DateTime())
+                ->setApproved(false);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($comment);
                 $entityManager->flush();
 
-                return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug(), '_fragment' => 'comments']);
+                $this->addFlash(
+                    'notice',
+                    'Votre commentaire a bien été pris en compte. Il sera posté après validation'
+                );
+                return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
         }
         $images = $imageRepository->findBy(['trick' => $trick->getId()]);
         $videos = $videoRepository->findBy(['trick' => $trick->getId()]);
@@ -205,11 +210,9 @@ class TrickController extends AbstractController
      *     message = "Ce n'est pas votre trick, vous ne pouvez pas le supprimer")
      * @param Request $request
      * @param Trick $trick
-     * @param CommentController $commentController
-     * @param CommentRepository $commentRepository
      * @return Response
      */
-    public function delete(Request $request, Trick $trick, CommentController $commentController, CommentRepository $commentRepository): Response
+    public function delete(Request $request, Trick $trick): Response
     {
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

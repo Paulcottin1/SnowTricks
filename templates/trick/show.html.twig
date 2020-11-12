@@ -125,19 +125,21 @@
                 {% if comments.items is not empty %}
                     <div class="comments row" id="comments">
                         {% for comment in comments %}
-                            <div class="col-12 row">
-                                <div class="col-lg-2 col-md-2 col-sm-12 col-12">
-                                    <img src="{{ asset('/assets/images/'~ comment.user.avatar ) }}">
-                                </div>
-                                <div class="col-10 col-lg-10 col-md-10 col-sm-12 row">
-                                    <p class="col-lg-4 col-md-4 col-sm-12 col-12 text-green"> {{ comment.user.firstname }} {{ comment.user.lastname }} </p>
-                                    <p class="col-lg-6 col-md-6 col-sm-12 col-12 text-green-light"> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
-                                </div>
+                            {% if comment.approved %}
                                 <div class="col-12 row">
-                                    <div class="col-lg-2 col-md-2 col-sm-12 col-12 text-green-light"></div>
-                                    <p class="separator padding-bottom col-lg-10 col-md-10 col-sm-12 col-12 text-green">{{ comment.comment }}</p>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-12">
+                                        <img src="{{ asset('/assets/images/'~ comment.user.avatar ) }}">
+                                    </div>
+                                    <div class="col-10 col-lg-10 col-md-10 col-sm-12 row">
+                                        <p class="col-lg-4 col-md-4 col-sm-12 col-12 text-green"> {{ comment.user.firstname }} {{ comment.user.lastname }} </p>
+                                        <p class="col-lg-6 col-md-6 col-sm-12 col-12 text-green-light"> posté le : {{ comment.commentedAt | date('d/m/Y') }} à {{ comment.commentedAt | date('H:i') }} </p>
+                                    </div>
+                                    <div class="col-12 row">
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-12 text-green-light"></div>
+                                        <p class="separator padding-bottom col-lg-10 col-md-10 col-sm-12 col-12 text-green">{{ comment.comment }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                     <div class="row justify-content-center">

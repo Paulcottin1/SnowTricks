@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modération des commentaires{% endblock %}
+
+{% block body %}
+    <div class="slogan row justify-content-center background-color">
+        <h1 class="col-8 text-center padding-top-h1">Modération des commentaires</h1>
+    </div>
+    <div class="row justify-content-center background-margin margin-bottom">
+        <div class="register-login text-center col-lg-6 col-md-6 col-sm-10 col-10 border-shadow">
+            {% if comments is not empty %}
+                <table class="table table-responsive-sm table-responsive-md table-responsive-lg">
+                    <thead>
+                        <tr class="border-shadow">
+                            <th scope="col">Trick</th>
+                            <th scope="col">Nom de l'utilisateur</th>
+                            <th scope="col">Commentaire</th>
+                            <th scope="col">Valider</th>
+                            <th scope="col">Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <th scope="row" class="padding-bottom">{{ comment.trick.title }}</th>
+                                <th class="padding-bottom">{{ comment.user.firstname }} {{ comment.user.lastname }}</th>
+                                <td class="padding-bottom">{{ comment.comment }}</td>
+                                <td><a href="{{ path('approved', {'id': comment.id}) }}"><p class="text-green">Valider</p></a></td>
+                                <td><a href="{{ path('delete_comment', {'id': comment.id}) }}"><p class="text-green">Supprimer</p></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <p class="text-green margin-bottom margin-top"> Tous les commentaires sont modérés !</p>
+                    <a href="{{ path('home') }}" class="btn-green btn margin-top margin-bottom padding-right padding-left">Retour à l'accueil</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

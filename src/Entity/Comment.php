@@ -44,6 +44,11 @@ class Comment
      */
     private $trick;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $approved;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +98,18 @@ class Comment
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getApproved(): ?bool
+    {
+        return $this->approved;
+    }
+
+    public function setApproved(bool $approved): self
+    {
+        $this->approved = $approved;
 
         return $this;
     }
