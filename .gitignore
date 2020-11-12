@@ -9,7 +9,6 @@
 /var/
 /vendor/
 .idea
-public/assets/images/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
