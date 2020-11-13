@@ -7,7 +7,7 @@
         <h1 class="col-8 text-center padding-top-h1">Modification du trick</h1>
     </div>
     {{ include('trick/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    {% if trick.user == app.user %}
+    {% if trick.user == app.user or is_granted('ROLE_ADMIN') %}
         <div class="text-center text-green">
             <p class="">ou</p>
         </div>
