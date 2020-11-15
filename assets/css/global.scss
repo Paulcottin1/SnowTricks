@@ -12,12 +12,13 @@ body {
 }
 
 .nav-link {
-  color: white !important;
+  color: white;
   font-size: 16px;
   font-weight: bold;
 }
 
 .nav-link:hover {
+  color: white;
   border-bottom: solid 2px #286458;
 }
 
@@ -96,7 +97,7 @@ select {
 
 .btn-green {
   background-color: #286458;
-  color: #98DEC4;
+  color: #98dec4;
   border-radius: 6px 6px 6px 6px;
   padding: 15px 0 15px 0;
   text-transform: uppercase;
@@ -120,7 +121,7 @@ select {
 }
 
 .separator {
-  border-bottom: 2px solid #98DEC4;
+  border-bottom: 2px solid #98dec4;
 }
 
 .margin-bottom {

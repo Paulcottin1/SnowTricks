@@ -44,14 +44,14 @@ var $collectionHolder;
 
 // setup an "add a tag" link
 var $addTagButton = $("<button type='button' class='add_tag_link btn btn-green padding-left padding-right margin-top'> Ajouter une photo</button>");
-var $newLinkLi = $('<li></li>').append($addTagButton);
+var $newLinkLi = $("<li></li>").append($addTagButton);
 
 var $addVideoButton = $("<button type='button' class='add_tag_link btn btn-green padding-left padding-right margin-top'> Ajouter une vidéo </button>");
-var $newVideoLi = $('<li></li>').append($addVideoButton);
+var $newVideoLi = $("<li></li>").append($addVideoButton);
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of tags
-    $collectionHolder = $('ul.image');
+    $collectionHolder = $("ul.image");
 
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
