@@ -17,6 +17,7 @@
     display: none;
   }
 }
+
 @media only screen and (min-width: 755px) {
   .arrow-down {
     position: absolute;
@@ -30,6 +31,7 @@
     right: 50px;
   }
 }
+
 #tricks ul {
   margin-top: -200px;
   padding: 0;

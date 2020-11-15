@@ -34,7 +34,7 @@ footer p {
   padding-top: 10px;
   height: 50px;
   background-color: #286458;
-  color: #98DEC4;
+  color: #98dec4;
   font-weight: bold;
 }
 
@@ -47,7 +47,7 @@ footer p {
 }
 
 .background-color {
-  background-color: #98DEC4;
+  background-color: #98dec4;
 }
 
 .background-white {
@@ -81,7 +81,9 @@ footer p {
   box-shadow: 4px 4px 6px 1px #286458;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   background-color: white;
   border-radius: 4px 4px 4px 4px;
   box-shadow: 4px 4px 6px 1px #286458;
@@ -111,7 +113,7 @@ input, textarea, select {
 }
 
 .text-green-light {
-  color: #98DEC4;
+  color: #98dec4;
   font-weight: bold;
 }
 
@@ -120,11 +122,11 @@ input, textarea, select {
 }
 
 .margin-bottom {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .margin-top {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .padding {
@@ -156,14 +158,6 @@ ul {
 .logo {
   height: 3rem;
   width: 3rem;
-}
-
-.margin-top {
-  margin-top: 15px;
-}
-
-.margin-bottom {
-  margin-bottom: 15px;
 }
 
 /*# sourceMappingURL=global.css.map */
