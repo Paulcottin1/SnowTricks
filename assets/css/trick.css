@@ -39,7 +39,8 @@
   height: auto;
 }
 
-.carousel-item img, iframe {
+.carousel-item img,
+iframe {
   height: 17rem;
   width: 100%;
 }
