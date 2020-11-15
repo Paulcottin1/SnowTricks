@@ -1,23 +1,23 @@
 $(document).ready(function(){
-    var page = 2;
-    var trick = $("#trick-page").data('trick');
+    var pageNb = 2;
+    var trickId = $("#trick-page").data("trick");
     $("#loadComments").click(function(e){
         e.preventDefault();
         $.ajax({
-            url : '/loadComments',
-            type :'GET',
-            dataType : 'html',
+            url : "/loadComments",
+            type :"GET",
+            dataType : "html",
             data : {
-                'page': page,
-                'trick': trick,
+                "page": pageNb,
+                "trick": trickId,
             },
-            success: function(data) {
-                var div = document.getElementById('comments');
-                div.insertAdjacentHTML('beforeend', data);
-                page = page + 1;
+            success: function loadComments(li) {
+                var div = document.getElementById("comments");
+                div.insertAdjacentHTML("beforeend", li);
+                pageNb = pageNb + 1;
             },
-            error:function(data) {
-                alert('Impossible de charger plus de commentaires');
+            error: function loadComments() {
+                alert("Impossible de charger plus de commentaires");
             }
         });
     });
