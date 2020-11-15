@@ -11,12 +11,13 @@ body {
 }
 
 .nav-link {
-  color: white !important;
+  color: white;
   font-size: 16px;
   font-weight: bold;
 }
 
 .nav-link:hover {
+  color: white;
   border-bottom: solid 2px #286458;
 }
 
