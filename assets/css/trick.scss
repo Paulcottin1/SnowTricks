@@ -8,7 +8,7 @@
 .comments img {
   height: 60px;
   width: 60px;
-  border:none;
+  border: none;
 }
 
 .img-presentation img {
@@ -23,8 +23,8 @@
   border-right: none;
   border-bottom: 1px solid #17a2b8;
   padding-bottom: 5px;
-
 }
+
 .trick-form label {
   display: block;
 }
@@ -39,7 +39,8 @@
   height: auto;
 }
 
-.carousel-item img, iframe {
+.carousel-item img,
+iframe {
   height: 17rem;
   width: 100%;
 }

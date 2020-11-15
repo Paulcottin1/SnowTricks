@@ -26,7 +26,7 @@ class CommentController extends AbstractController
     public function loadMoreComments(CommentRepository $repository, Request $request, PaginatorInterface $paginator) : Response
     {
         $trick = $request->query->getInt('trick');
-        $comments = $repository->findBy(['trick' => $trick], ['id' => 'DESC']);
+        $comments = $repository->findBy(['trick' => $trick, 'approved' => '1'], ['id' => 'DESC']);
         $result = $paginator->paginate(
             $comments,
             $request->query->getInt('page', 1),

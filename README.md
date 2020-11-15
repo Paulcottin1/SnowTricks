@@ -2,7 +2,7 @@
 
 Community snowboard trick sharing website
 
-# Installation
+## Installation
 
 Clone the repository Github
 
