@@ -50,6 +50,12 @@ Create an asset build (thanks to Webpack Encore) with Yarn
 yarn encore dev
 ```
 
+Run the project
+
+```
+symfony server:start
+```
+
 Use admin account to administrate the website
 
 > login: admin@gmail.com
