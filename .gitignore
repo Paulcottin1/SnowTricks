@@ -9,6 +9,7 @@
 /var/
 /vendor/
 .idea
+/docker-compose.yml
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

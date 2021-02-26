@@ -1,0 +1,7 @@
+parameters:
+  database_driver: mysqli
+  database_host: db
+  database_port: 3306
+  database_name: snowtricks
+  database_user: root
+  database_password: d17d11j15p13
